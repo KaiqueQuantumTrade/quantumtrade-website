@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - QuantumTrade</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 20px 0;
+            border-bottom: 1px solid #333;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #00ff88;
+        }
+
+        .logo svg {
+            margin-right: 10px;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00ff88 0%, #8b5cf6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: 1px solid #8b5cf6;
+            color: #8b5cf6;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #8b5cf6;
+            color: #ffffff;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        /* Upload Section */
+        .upload-section {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border-radius: 16px;
+            padding: 40px;
+            border: 1px solid #333;
+        }
+
+        .upload-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #00ff88;
+        }
+
+        .upload-section p {
+            color: #cccccc;
+            margin-bottom: 30px;
+        }
+
+        .upload-area {
+            border: 2px dashed #333;
+            border-radius: 12px;
+            padding: 60px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-area:hover {
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        .upload-area.dragover {
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .upload-text {
+            font-size: 1.2rem;
+            color: #cccccc;
+            margin-bottom: 10px;
+        }
+
+        .upload-subtext {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .upload-btn {
+            background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
+            color: #000000;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.3);
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        /* Analysis Options */
+        .analysis-options {
+            margin-top: 30px;
+        }
+
+        .analysis-options h3 {
+            color: #8b5cf6;
+            margin-bottom: 15px;
+        }
+
+        .option-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .option-btn {
+            flex: 1;
+            background: #2d2d2d;
+            border: 2px solid #333;
+            color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .option-btn.active {
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .analyze-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+            color: white;
+            padding: 18px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            disabled: true;
+        }
+
+        .analyze-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4);
+        }
+
+        .analyze-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Results Section */
+        .results-section {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border-radius: 16px;
+            padding: 40px;
+            border: 1px solid #333;
+        }
+
+        .results-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #8b5cf6;
+        }
+
+        .no-analysis {
+            text-align: center;
+            color: #666;
+            padding: 60px 20px;
+        }
+
+        .no-analysis-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #333;
+            border-top: 3px solid #00ff88;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Analysis Results */
+        .analysis-results {
+            display: none;
+        }
+
+        .result-card {
+            background: #2d2d2d;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 4px solid #00ff88;
+        }
+
+        .result-card h3 {
+            color: #00ff88;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .result-card p {
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        .trade-recommendation {
+            background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+            border-left: 4px solid #fbbf24;
+        }
+
+        .trade-recommendation h3 {
+            color: #ffffff;
+        }
+
+        .trade-values {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .trade-value {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .trade-value-label {
+            font-size: 0.9rem;
+            color: #cccccc;
+            margin-bottom: 5px;
+        }
+
+        .trade-value-amount {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fbbf24;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 20px;
+            }
+
+            .upload-section,
+            .results-section {
+                padding: 30px 20px;
+            }
+
+            .option-group {
+                flex-direction: column;
+            }
+
+            .trade-values {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="16" cy="16" r="15" stroke="#00ff88" stroke-width="2"/>
+                    <path d="M12 20L16 12L20 20" stroke="#00ff88" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M8 24L16 8L24 24" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                QuantumTrade
+            </div>
+            <div class="user-menu">
+                <div class="user-info">
+                    <div class="user-avatar">U</div>
+                    <span>Usuário</span>
+                </div>
+                <button class="logout-btn" onclick="logout()">Sair</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Upload Section -->
+        <section class="upload-section">
+            <h2>Análise de Gráfico</h2>
+            <p>Faça upload de um screenshot do seu gráfico de trading para receber uma análise completa baseada em IA.</p>
+            
+            <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+                <div class="upload-icon">📊</div>
+                <div class="upload-text">Clique aqui ou arraste seu screenshot</div>
+                <div class="upload-subtext">Formatos aceitos: PNG, JPG, JPEG (máx. 10MB)</div>
+                <button class="upload-btn">Selecionar Arquivo</button>
+                <input type="file" id="fileInput" class="file-input" accept="image/*" onchange="handleFileSelect(event)">
+            </div>
+
+            <div class="analysis-options">
+                <h3>Tipo de Análise</h3>
+                <div class="option-group">
+                    <div class="option-btn active" data-type="curto" onclick="selectAnalysisType('curto', this)">
+                        <strong>Curto Prazo</strong><br>
+                        <small>Scalping/Day Trade</small>
+                    </div>
+                    <div class="option-btn" data-type="completa" onclick="selectAnalysisType('completa', this)">
+                        <strong>Análise Completa</strong><br>
+                        <small>Swing/Médio Prazo</small>
+                    </div>
+                </div>
+                <button class="analyze-btn" id="analyzeBtn" onclick="startAnalysis()" disabled>
+                    Iniciar Análise
+                </button>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section class="results-section">
+            <h2>Resultados da Análise</h2>
+            
+            <div class="no-analysis" id="noAnalysis">
+                <div class="no-analysis-icon">📈</div>
+                <p>Faça upload de um gráfico para ver os resultados da análise aqui.</p>
+            </div>
+
+            <div class="loading" id="loadingAnalysis">
+                <div class="loading-spinner"></div>
+                <p>Analisando seu gráfico...</p>
+                <small>Isso pode levar alguns segundos</small>
+            </div>
+
+            <div class="analysis-results" id="analysisResults">
+                <!-- Results will be populated here -->
+            </div>
+        </section>
+    </main>
+
+    <script>
+        let selectedFile = null;
+        let analysisType = 'curto';
+
+        // File upload handling
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                selectedFile = file;
+                updateUploadArea(file);
+                document.getElementById('analyzeBtn').disabled = false;
+            }
+        }
+
+        function updateUploadArea(file) {
+            const uploadArea = document.getElementById('uploadArea');
+            uploadArea.innerHTML = `
+                <div class="upload-icon">✅</div>
+                <div class="upload-text">Arquivo selecionado: ${file.name}</div>
+                <div class="upload-subtext">Tamanho: ${(file.size / 1024 / 1024).toFixed(2)} MB</div>
+                <button class="upload-btn" onclick="document.getElementById('fileInput').click()">Trocar Arquivo</button>
+            `;
+        }
+
+        // Drag and drop functionality
+        const uploadArea = document.getElementById('uploadArea');
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                const file = files[0];
+                if (file.type.startsWith('image/')) {
+                    selectedFile = file;
+                    updateUploadArea(file);
+                    document.getElementById('analyzeBtn').disabled = false;
+                } else {
+                    alert('Por favor, selecione apenas arquivos de imagem.');
+                }
+            }
+        });
+
+        // Analysis type selection
+        function selectAnalysisType(type, element) {
+            analysisType = type;
+            
+            // Remove active class from all options
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to selected option
+            element.classList.add('active');
+        }
+
+        // Start analysis
+        function startAnalysis() {
+            if (!selectedFile) {
+                alert('Por favor, selecione um arquivo primeiro.');
+                return;
+            }
+
+            // Hide no analysis message
+            document.getElementById('noAnalysis').style.display = 'none';
+            
+            // Show loading
+            document.getElementById('loadingAnalysis').style.display = 'block';
+            
+            // Hide previous results
+            document.getElementById('analysisResults').style.display = 'none';
+
+            // Simulate analysis (replace with actual API call)
+            setTimeout(() => {
+                showAnalysisResults();
+            }, 3000);
+        }
+
+        // Show analysis results (mock data)
+        function showAnalysisResults() {
+            document.getElementById('loadingAnalysis').style.display = 'none';
+            
+            const resultsContainer = document.getElementById('analysisResults');
+            resultsContainer.innerHTML = `
+                <div class="result-card">
+                    <h3>Indicadores Técnicos</h3>
+                    <p><strong>MACD:</strong> Sinal de compra confirmado com cruzamento positivo. Nota: 8/10</p>
+                    <p><strong>RSI:</strong> Nível neutro em 55, sem sobrecompra/sobrevenda. Nota: 7/10</p>
+                    <p><strong>Bollinger Bands:</strong> Preço próximo à banda superior, possível resistência. Nota: 6/10</p>
+                    <p><strong>Média Final:</strong> 7.2/10 - Tendência de alta moderada</p>
+                </div>
+
+                <div class="result-card">
+                    <h3>Padrões Gráficos</h3>
+                    <p><strong>Padrão Identificado:</strong> Triângulo ascendente em formação</p>
+                    <p><strong>Suporte:</strong> R$ 45.20</p>
+                    <p><strong>Resistência:</strong> R$ 47.80</p>
+                    <p><strong>Confiabilidade:</strong> 85% baseada em volume</p>
+                </div>
+
+                <div class="result-card">
+                    <h3>Análise Macroeconômica</h3>
+                    <p><strong>Contexto:</strong> Ambiente favorável com expectativa de corte de juros</p>
+                    <p><strong>Impacto:</strong> Positivo para ativos de risco</p>
+                    <p><strong>Recomendação:</strong> Contexto macro suporta movimento de alta</p>
+                </div>
+
+                <div class="result-card trade-recommendation">
+                    <h3>Recomendação de Trade</h3>
+                    <p><strong>Decisão:</strong> COMPRA</p>
+                    <p><strong>Justificativa:</strong> Confluência de sinais técnicos positivos com contexto macro favorável</p>
+                    
+                    <div class="trade-values">
+                        <div class="trade-value">
+                            <div class="trade-value-label">Entrada</div>
+                            <div class="trade-value-amount">R$ 46.50</div>
+                        </div>
+                        <div class="trade-value">
+                            <div class="trade-value-label">Take Profit</div>
+                            <div class="trade-value-amount">R$ 49.20</div>
+                        </div>
+                        <div class="trade-value">
+                            <div class="trade-value-label">Stop Loss</div>
+                            <div class="trade-value-amount">R$ 44.80</div>
+                        </div>
+                        <div class="trade-value">
+                            <div class="trade-value-label">R/R Ratio</div>
+                            <div class="trade-value-amount">1:1.6</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            resultsContainer.style.display = 'block';
+        }
+
+        // Logout function
+        function logout() {
+            if (confirm('Tem certeza que deseja sair?')) {
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Dashboard carregado com sucesso');
+        });
+    </script>
+</body>
+</html>
+
