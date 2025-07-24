@@ -113,7 +113,7 @@
 <body>
     <div class="register-container">
         <h2>Cadastro QuantumTrade</h2>
-        <form>
+        <form id="registerForm">
             <div class="input-group">
                 <label for="name">Nome Completo</label>
                 <input type="text" id="name" name="name" required>
@@ -132,6 +132,39 @@
             </div>
             <button type="submit" class="btn-register">Criar Conta</button>
         </form>
+
+        <script>
+            document.getElementById('registerForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirm-password').value;
+                
+                // Validação básica
+                if (!name || !email || !password || !confirmPassword) {
+                    alert('Por favor, preencha todos os campos.');
+                    return;
+                }
+                
+                if (password !== confirmPassword) {
+                    alert('As senhas não coincidem.');
+                    return;
+                }
+                
+                if (password.length < 6) {
+                    alert('A senha deve ter pelo menos 6 caracteres.');
+                    return;
+                }
+                
+                // Simular registro bem-sucedido
+                alert('Conta criada com sucesso! Redirecionando para o login...');
+                
+                // Redirecionar para a página de login
+                window.location.href = 'login.html';
+            });
+        </script>
         <div class="terms">
             Ao criar uma conta, você concorda com nossos <a href="#">Termos de Serviço</a> e <a href="#">Política de Privacidade</a>.
         </div>

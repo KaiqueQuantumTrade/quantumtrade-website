@@ -3,119 +3,406 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuantumTrade - Login</title>
+    <title>Login - QuantumTrade</title>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background-color: #131722;
-            color: #e0e0e0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2d2d2d 100%);
+            color: #ffffff;
             min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="grad" cx="50%" cy="50%" r="50%"><stop offset="0%" style="stop-color:%2300ff88;stop-opacity:0.1"/><stop offset="100%" style="stop-color:%2300ff88;stop-opacity:0"/></radialGradient></defs><circle cx="500" cy="500" r="400" fill="url(%23grad)"/></svg>') center/cover;
+            opacity: 0.3;
         }
 
         .login-container {
-            background-color: #1e222d;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            border: 1px solid #363c4e;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 60px 40px;
+            border-radius: 20px;
+            border: 1px solid #333;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            color: #00ff88;
+            margin-bottom: 40px;
+        }
+
+        .logo svg {
+            margin-right: 12px;
+        }
+
+        .login-header {
             text-align: center;
+            margin-bottom: 40px;
         }
 
-        .login-container h2 {
-            color: #FFD700;
-            margin-bottom: 30px;
-            font-size: 2em;
+        .login-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #00ff88 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .input-group {
-            margin-bottom: 20px;
-            text-align: left;
+        .login-header p {
+            color: #cccccc;
+            font-size: 1rem;
         }
 
-        .input-group label {
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
             display: block;
             margin-bottom: 8px;
-            color: #b0b0b0;
-            font-size: 0.9em;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #363c4e;
-            border-radius: 5px;
-            background-color: #2a2e39;
-            color: #e0e0e0;
-            font-size: 1em;
-        }
-
-        .input-group input:focus {
-            outline: none;
-            border-color: #00e676;
-            box-shadow: 0 0 0 2px rgba(0, 230, 118, 0.3);
-        }
-
-        .btn-login {
-            background: linear-gradient(90deg, #00e676 0%, #e94560 100%);
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.1em;
-            border-radius: 5px;
-            cursor: pointer;
             color: #ffffff;
-            font-weight: bold;
-            transition: opacity 0.3s ease;
+            font-weight: 500;
+        }
+
+        .form-group input {
             width: 100%;
+            padding: 15px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            background: #2d2d2d;
+            color: #ffffff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
         }
 
-        .btn-login:hover {
-            opacity: 0.9;
+        .form-group input:focus {
+            outline: none;
+            border-color: #00ff88;
+            box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
         }
 
-        .forgot-password, .signup-link {
-            margin-top: 20px;
-            font-size: 0.9em;
+        .form-group input::placeholder {
+            color: #888;
         }
 
-        .forgot-password a, .signup-link a {
-            color: #FFD700;
+        .forgot-password {
+            text-align: right;
+            margin-bottom: 30px;
+        }
+
+        .forgot-password a {
+            color: #8b5cf6;
             text-decoration: none;
+            font-size: 0.9rem;
             transition: color 0.3s ease;
         }
 
-        .forgot-password a:hover, .signup-link a:hover {
-            color: #00e676;
+        .forgot-password a:hover {
+            color: #a855f7;
+        }
+
+        .login-button {
+            width: 100%;
+            background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
+            color: #000000;
+            padding: 18px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 25px;
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(0, 255, 136, 0.4);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #333;
+        }
+
+        .divider span {
+            background: #1a1a1a;
+            padding: 0 20px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .social-login {
+            margin-bottom: 30px;
+        }
+
+        .google-button {
+            width: 100%;
+            background: #ffffff;
+            color: #333333;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .google-button:hover {
+            background: #f8f9fa;
+            border-color: #00ff88;
+            transform: translateY(-1px);
+        }
+
+        .register-link {
+            text-align: center;
+            color: #cccccc;
+        }
+
+        .register-link a {
+            color: #00ff88;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .register-link a:hover {
+            color: #00cc6a;
+        }
+
+        .back-home {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            z-index: 3;
+        }
+
+        .back-home a {
+            color: #cccccc;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .back-home a:hover {
+            color: #00ff88;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .login-container {
+                margin: 20px;
+                padding: 40px 30px;
+            }
+
+            .back-home {
+                top: 20px;
+                left: 20px;
+            }
+
+            .login-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 30px 20px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            .login-header h1 {
+                font-size: 1.6rem;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="back-home">
+        <a href="index.html">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Voltar ao Início
+        </a>
+    </div>
+
     <div class="login-container">
-        <h2>Login QuantumTrade</h2>
-        <form>
-            <div class="input-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="input-group">
-                <label for="password">Senha</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit" class="btn-login">Entrar</button>
-        </form>
-        <div class="forgot-password">
-            <a href="#">Esqueceu a senha?</a>
+        <div class="logo">
+            <svg width="36" height="36" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="16" cy="16" r="15" stroke="#00ff88" stroke-width="2"/>
+                <path d="M12 20L16 12L20 20" stroke="#00ff88" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 24L16 8L24 24" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            QuantumTrade
         </div>
-        <div class="signup-link">
+
+        <div class="login-header">
+            <h1>Bem-vindo de volta</h1>
+            <p>Entre na sua conta para continuar analisando</p>
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+            </div>
+
+            <div class="forgot-password">
+                <a href="#" onclick="showForgotPassword()">Esqueceu a senha?</a>
+            </div>
+
+            <button type="submit" class="login-button">Entrar</button>
+        </form>
+
+        <div class="divider">
+            <span>ou</span>
+        </div>
+
+        <div class="social-login">
+            <button class="google-button" onclick="loginWithGoogle()">
+                <svg width="20" height="20" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                </svg>
+                Entrar com Google
+            </button>
+        </div>
+
+        <div class="register-link">
             Não tem uma conta? <a href="register.html">Cadastre-se</a>
         </div>
     </div>
+
+    <script>
+        // Form submission handler
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (!email || !password) {
+                alert('Por favor, preencha todos os campos.');
+                return;
+            }
+            
+            // Here you would typically send the data to your backend
+            // For now, we'll simulate a successful login
+            alert('Login realizado com sucesso! Redirecionando para o dashboard...');
+            
+            // Redirect to dashboard
+            window.location.href = 'dashboard.html';
+        });
+
+        // Google login handler
+        function loginWithGoogle() {
+            // Here you would integrate with Google OAuth
+            alert('Integração com Google OAuth será implementada.');
+        }
+
+        // Forgot password handler
+        function showForgotPassword() {
+            const email = prompt('Digite seu e-mail para recuperar a senha:');
+            if (email) {
+                alert('Um link de recuperação foi enviado para ' + email);
+            }
+        }
+
+        // Add loading animation to login button
+        function showLoading(button) {
+            const originalText = button.textContent;
+            button.textContent = 'Entrando...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.disabled = false;
+            }, 2000);
+        }
+
+        // Enhanced form validation
+        document.getElementById('email').addEventListener('blur', function() {
+            const email = this.value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (email && !emailRegex.test(email)) {
+                this.style.borderColor = '#ef4444';
+            } else {
+                this.style.borderColor = '#333';
+            }
+        });
+
+        // Password strength indicator (basic)
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            
+            if (password.length > 0 && password.length < 6) {
+                this.style.borderColor = '#ef4444';
+            } else if (password.length >= 6) {
+                this.style.borderColor = '#00ff88';
+            } else {
+                this.style.borderColor = '#333';
+            }
+        });
+    </script>
 </body>
 </html>
 
