@@ -5,42 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuantumTrade - Sua Plataforma de Trading</title>
     <style>
-        /* Estilos Globais */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background-color: #131722; /* Fundo escuro inspirado no TradingView */
-            color: #e0e0e0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
             line-height: 1.6;
         }
 
         .container {
-            width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px 0;
+            padding: 0 20px;
         }
 
-        h1, h2, h3 {
-            color: #ffffff; /* Branco para títulos */
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        p {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        /* Cabeçalho */
+        /* Header */
         header {
-            background-color: #131722;
-            padding: 15px 0;
-            border-bottom: 1px solid #2a2e39;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #333;
         }
 
-        header .container {
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -49,470 +45,631 @@
         .logo {
             display: flex;
             align-items: center;
-            font-size: 2em;
+            font-size: 24px;
             font-weight: bold;
-            color: #FFD700; /* Dourado para o logo */
+            color: #00ff88;
         }
 
         .logo svg {
-            height: 40px; /* Ajuste conforme o tamanho do seu logo */
-            width: 40px;
             margin-right: 10px;
-            fill: #FFD700; /* Cor do SVG */
         }
 
         nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
             display: flex;
+            list-style: none;
+            gap: 30px;
         }
 
-        nav ul li {
-            margin-left: 30px;
-        }
-
-        nav ul li a {
-            color: #e0e0e0;
+        nav a {
+            color: #ffffff;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 500;
             transition: color 0.3s ease;
         }
 
-        nav ul li a:hover {
-            color: #FFD700;
+        nav a:hover {
+            color: #00ff88;
         }
 
-        .nav-buttons {
-            display: flex;
-            gap: 15px;
-        }
-
-        .nav-buttons a {
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
+        .cta-header {
+            background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
             transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
         }
 
-        .nav-buttons .login-btn {
-            color: #e0e0e0;
-            border: 1px solid #363c4e;
+        .cta-header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
         }
 
-        .nav-buttons .login-btn:hover {
-            background-color: #363c4e;
-        }
-
-        .nav-buttons .signup-btn {
-            background: linear-gradient(90deg, #00e676 0%, #e94560 100%);
-            color: #ffffff;
-        }
-
-        .nav-buttons .signup-btn:hover {
-            opacity: 0.9;
-        }
-
-        /* Seção Hero */
+        /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #131722 0%, #2a2e39 100%);
-            padding: 80px 0;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2d2d2d 100%);
+            padding: 150px 0 100px;
             text-align: center;
             position: relative;
             overflow: hidden;
         }
 
         .hero::before {
-            content: "";
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300e676' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="grad" cx="50%" cy="50%" r="50%"><stop offset="0%" style="stop-color:%2300ff88;stop-opacity:0.1"/><stop offset="100%" style="stop-color:%2300ff88;stop-opacity:0"/></radialGradient></defs><circle cx="500" cy="500" r="400" fill="url(%23grad)"/></svg>') center/cover;
             opacity: 0.3;
-            z-index: 0;
         }
 
-        .hero .container {
+        .hero-content {
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
 
-        .hero h2 {
-            font-size: 3.5em;
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
             margin-bottom: 20px;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            background: linear-gradient(135deg, #00ff88 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero p {
-            font-size: 1.2em;
-            max-width: 700px;
-            margin: 0 auto 40px auto;
-            color: #b0b0b0;
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            color: #cccccc;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .hero-cta-card {
-            background-color: #1e222d;
-            border-radius: 8px;
-            padding: 30px;
-            margin: 40px auto 0 auto;
-            max-width: 400px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            border: 1px solid #363c4e;
-        }
-
-        .hero-cta-card h3 {
-            font-size: 2em;
-            color: #FFD700;
-            margin-bottom: 15px;
-        }
-
-        .hero-cta-card .cta-button {
-            background: linear-gradient(90deg, #00e676 0%, #e94560 100%); /* Gradiente verde neon para roxo vibrante */
+        .cta-button {
+            background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
+            color: #000000;
+            padding: 18px 40px;
             border: none;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            border-radius: 5px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
             cursor: pointer;
-            transition: opacity 0.3s ease;
-            color: #ffffff;
+            transition: all 0.3s ease;
             text-decoration: none;
             display: inline-block;
-            font-weight: bold;
+            margin: 10px;
         }
 
-        .hero-cta-card .cta-button:hover {
-            opacity: 0.9;
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 255, 136, 0.4);
         }
 
-        .hero-cta-card p {
-            font-size: 0.9em;
-            color: #b0b0b0;
-            margin-top: 10px;
-        }
-
-        /* Seções de Conteúdo */
-        .section {
-            padding: 60px 0;
-            background-color: #1e222d;
-            margin-bottom: 20px;
-            border-radius: 10px;
-        }
-
-        .section:nth-child(even) {
-            background-color: #131722;
-        }
-
-        .section h2 {
-            font-size: 2.5em;
-            margin-bottom: 40px;
+        .cta-secondary {
+            background: transparent;
             color: #ffffff;
+            border: 2px solid #8b5cf6;
+            padding: 16px 38px;
+        }
+
+        .cta-secondary:hover {
+            background: #8b5cf6;
+            box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: #111111;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #00ff88;
+        }
+
+        .features-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #cccccc;
+            margin-bottom: 60px;
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 40px;
+            border-radius: 16px;
             text-align: center;
+            border: 1px solid #333;
+            transition: all 0.3s ease;
         }
 
-        .feature-item {
-            background-color: #1e222d;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 230, 118, 0.2);
-            transition: transform 0.3s ease;
-            border: 1px solid #363c4e;
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: #00ff88;
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.1);
         }
 
-        .feature-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-item .icon {
+        .feature-icon {
             width: 80px;
             height: 80px;
-            margin: 0 auto 20px auto;
-            background: linear-gradient(135deg, #00e676 0%, #e94560 100%);
+            margin: 0 auto 20px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .feature-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #00ff88;
+        }
+
+        .feature-card p {
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        /* How it Works Section */
+        .how-it-works {
+            padding: 100px 0;
+            background: #0a0a0a;
+        }
+
+        .how-it-works h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #8b5cf6;
+        }
+
+        .how-it-works-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #cccccc;
+            margin-bottom: 60px;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .step-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid #333;
+            position: relative;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2em;
-            color: #ffffff;
-        }
-
-        .feature-item h3 {
-            color: #FFD700;
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
-
-        .feature-item p {
-            color: #b0b0b0;
-            font-size: 0.95em;
-        }
-
-        /* Seção de Preços */
-        .pricing-section {
-            background-color: #1e222d;
-            padding: 80px 0;
-            text-align: center;
-        }
-
-        .pricing-section h2 {
-            font-size: 3em;
-            margin-bottom: 40px;
-            color: #ffffff;
-        }
-
-        .plan-toggle {
-            display: inline-flex;
-            background-color: #2a2e39;
-            border-radius: 5px;
-            margin-bottom: 40px;
-        }
-
-        .plan-toggle button {
-            background-color: transparent;
-            border: none;
-            color: #e0e0e0;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-size: 1.1em;
             font-weight: bold;
-            border-radius: 5px;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            font-size: 1.2rem;
         }
 
-        .plan-toggle button.active {
-            background-color: #FFD700;
-            color: #131722;
+        .step-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #00ff88;
+            margin-top: 20px;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 100px 0;
+            background: #111111;
+        }
+
+        .pricing h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: #00ff88;
+        }
+
+        .pricing-toggle {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 60px;
+        }
+
+        .toggle-button {
+            background: #2d2d2d;
+            border: none;
+            color: #ffffff;
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-button.active {
+            background: #fbbf24;
+            color: #000000;
+        }
+
+        .toggle-button:first-child {
+            border-radius: 8px 0 0 8px;
+        }
+
+        .toggle-button:last-child {
+            border-radius: 0 8px 8px 0;
         }
 
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjusted for more columns */
+            gap: 40px;
+            max-width: 1200px; /* Increased max-width */
+            margin: 0 auto;
         }
 
-        .price-card {
-            background-color: #131722;
-            border-radius: 10px;
-            padding: 40px 20px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-            border: 1px solid #363c4e;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        .pricing-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid #333;
+            position: relative;
+            transition: all 0.3s ease;
         }
 
-        .price-card.popular {
-            border-color: #00e676;
-            box-shadow: 0 0 25px rgba(0, 230, 118, 0.6);
+        .pricing-card.featured {
+            border-color: #00ff88;
+            transform: scale(1.05);
         }
 
-        .price-card h3 {
-            font-size: 2em;
-            color: #FFD700;
-            margin-bottom: 15px;
-        }
-
-        .price-card .price {
-            font-size: 2.5em;
+        .pricing-card.featured::before {
+            content: 'MAIS POPULAR';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #00ff88;
+            color: #000000;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.8rem;
             font-weight: bold;
-            color: #00e676;
+        }
+
+        .plan-name {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #fbbf24;
+        }
+
+        .plan-price {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #00ff88;
             margin-bottom: 10px;
         }
 
-        .price-card .price span {
-            font-size: 0.6em;
-            color: #b0b0b0;
+        .plan-price .currency {
+            font-size: 1.5rem;
         }
 
-        .price-card ul {
+        .plan-price .period {
+            font-size: 1rem;
+            color: #cccccc;
+        }
+
+        .plan-discount {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .plan-features {
             list-style: none;
-            padding: 0;
-            text-align: left;
-            margin-bottom: 30px;
-            flex-grow: 1;
+            margin-bottom: 40px;
         }
 
-        .price-card ul li {
-            margin-bottom: 10px;
-            color: #b0b0b0;
+        .plan-features li {
+            padding: 8px 0;
+            color: #cccccc;
+            position: relative;
+            padding-left: 25px;
         }
 
-        .price-card ul li::before {
-            content: "\2713"; /* Checkmark */
-            color: #00e676;
-            margin-right: 10px;
-        }
-
-        .price-card .cta-button {
-            display: block;
-            width: 100%;
-            text-align: center;
-            background-color: #e94560;
-            color: #ffffff;
-            padding: 12px 0;
-            border-radius: 5px;
-            text-decoration: none;
+        .plan-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #00ff88;
             font-weight: bold;
-            transition: background-color 0.3s ease;
         }
 
-        .price-card .cta-button:hover {
-            background-color: #b82c42;
+        .plan-button {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-size: 1.1rem;
         }
 
-        /* Rodapé */
-        footer {
-            background-color: #131722;
-            color: #e0e0e0;
+        .plan-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+        }
+
+        .pricing-card.featured .plan-button {
+            background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
+            color: #000000;
+        }
+
+        .pricing-card.featured .plan-button:hover {
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.3);
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 100px 0;
+            background: #0a0a0a;
+        }
+
+        .testimonials h2 {
             text-align: center;
-            padding: 30px 0;
-            margin-top: 20px;
-            border-top: 1px solid #2a2e39;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: #8b5cf6;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .testimonial-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid #333;
+            text-align: center;
+        }
+
+        .testimonial-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            overflow: hidden;
+        }
+
+        .testimonial-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: #cccccc;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: #fbbf24;
+        }
+
+        /* Final CTA Section */
+        .final-cta {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #00ff88;
+        }
+
+        .final-cta p {
+            font-size: 1.2rem;
+            color: #cccccc;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .final-cta-button {
+            background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+            color: white;
+            padding: 20px 50px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .final-cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a0a;
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid #333;
         }
 
         footer p {
-            margin: 0;
-            font-size: 0.9em;
+            color: #666666;
         }
 
-        /* Responsividade */
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .hero h2 {
-                font-size: 2.5em;
+            .hero h1 {
+                font-size: 2.5rem;
             }
 
             .hero p {
-                font-size: 1em;
+                font-size: 1.1rem;
             }
 
-            nav ul li {
-                margin-left: 15px;
-            }
-
-            .features-grid, .pricing-grid {
+            .pricing-grid {
                 grid-template-columns: 1fr;
             }
 
-            .nav-buttons {
-                flex-direction: column;
-                gap: 10px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            header .container {
-                flex-direction: column;
+            .pricing-card.featured {
+                transform: none;
             }
 
             nav ul {
-                margin-top: 15px;
-            }
-
-            nav ul li {
-                margin: 0 10px;
-            }
-
-            .hero h2 {
-                font-size: 2em;
-            }
-
-            .hero-cta-card {
-                padding: 20px;
-            }
-
-            .hero-cta-card h3 {
-                font-size: 1.5em;
-            }
-
-            .hero-cta-card .cta-button {
-                padding: 10px 20px;
-                font-size: 1em;
-            }
-
-            .pricing-section h2 {
-                font-size: 2em;
+                display: none;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Header -->
     <header>
         <div class="container">
-            <div class="logo">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
-                </svg>
-                QuantumTrade
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="#features">Funcionalidades</a></li>
-                    <li><a href="#how-it-works">Como Funciona</a></li>
-                    <li><a href="#testimonials">Depoimentos</a></li>
-                    <li><a href="#pricing">Preços</a></li>
-                    <li><a href="#contact">Contato</a></li>
-                </ul>
-            </nav>
-            <div class="nav-buttons">
-                <a href="login.html" class="login-btn">Login</a>
-                <a href="register.html" class="signup-btn">Cadastre-se</a>
+            <div class="header-content">
+                <div class="logo">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="16" cy="16" r="15" stroke="#00ff88" stroke-width="2"/>
+                        <path d="M12 20L16 12L20 20" stroke="#00ff88" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8 24L16 8L24 24" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    QuantumTrade
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#recursos">Recursos</a></li>
+                        <li><a href="#precos">Preços</a></li>
+                        <li><a href="#depoimentos">Depoimentos</a></li>
+                        <li><a href="#contato">Contato</a></li>
+                    </ul>
+                </nav>
+                <a href="register.html" class="cta-header">Cadastre-se</a>
             </div>
         </div>
     </header>
 
+    <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h2>A inteligência artificial que transforma dados em decisões de trade.</h2>
-            <p>Observe primeiro o desempenho de todos os mercados e, em seguida, entre neles na plataforma usada por 100 milhões de traders.</p>
-            <div class="hero-cta-card">
-                <h3>$0 para sempre</h3>
-                <a href="register.html" class="cta-button">Inscrever-se</a>
-                <p>Não é necessário cartão de crédito</p>
+            <div class="hero-content">
+                <h1>QuantumTrade</h1>
+                <p>A inteligência artificial que transforma dados em decisões de trade. Observe primeiro o desempenho de todos os mercados e, em seguida, entre neles na plataforma usada por 100 milhões de traders.</p>
+                <a href="register.html" class="cta-button">Comece Grátis</a>
+                <a href="#recursos" class="cta-button cta-secondary">Saiba Mais</a>
             </div>
         </div>
     </section>
 
-    <section id="features" class="section">
+    <!-- Features Section -->
+    <section class="features" id="recursos">
         <div class="container">
             <h2>Funcionalidades Poderosas</h2>
-            <p>Tudo o que você precisa para o sucesso no trading baseado em dados.</p>
+            <p class="features-subtitle">Tudo que você precisa para o sucesso no trading, baseado em dados.</p>
+            
             <div class="features-grid">
-                <div class="feature-item">
-                    <div class="icon">📊</div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="feature_ocr_chart.png" alt="OCR Chart Recognition">
+                    </div>
                     <h3>OCR Chart Recognition</h3>
-                    <p>Análise precisa de gráficos com reconhecimento óptico de caracteres.</p>
+                    <p>Analise preços de gráficos com reconhecimento óptico de caracteres.</p>
                 </div>
-                <div class="feature-item">
-                    <div class="icon">🔄</div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="feature_sync_data.png" alt="Sincronização de Dados">
+                    </div>
                     <h3>Sincronização de Dados em Tempo Real</h3>
                     <p>Mantenha seus dados de mercado sempre atualizados e precisos.</p>
                 </div>
-                <div class="feature-item">
-                    <div class="icon">🤖</div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="feature_ai_signals.png" alt="Sinais de Trading">
+                    </div>
                     <h3>Sinais de Trading Automatizados</h3>
                     <p>Receba alertas e sugestões de trading baseadas em IA.</p>
                 </div>
-                <div class="feature-item">
-                    <div class="icon">🛡️</div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="feature_risk_management.png" alt="Gerenciamento de Risco">
+                    </div>
                     <h3>Gerenciamento de Risco</h3>
                     <p>Otimize o tamanho das suas posições e gerencie riscos com IA.</p>
                 </div>
-                <div class="feature-item">
-                    <div class="icon">📝</div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="feature_trading_diary.png" alt="Diário de Trading">
+                    </div>
                     <h3>Diário de Trading</h3>
-                    <p>Acompanhe seu progresso e melhore sua consistência.</p>
+                    <p>Acompanhe seu progresso e melhore sua performance.</p>
                 </div>
-                <div class="feature-item">
-                    <div class="icon">📈</div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="feature_ai_reports.png" alt="Relatórios de IA">
+                    </div>
                     <h3>Relatórios de IA Personalizados</h3>
                     <p>Obtenha insights detalhados sobre seu desempenho de trading.</p>
                 </div>
@@ -520,23 +677,27 @@
         </div>
     </section>
 
-    <section id="how-it-works" class="section">
+    <!-- How it Works Section -->
+    <section class="how-it-works">
         <div class="container">
             <h2>Como Funciona</h2>
-            <p>Três passos simples para transformar seu trading com insights de IA.</p>
-            <div class="features-grid">
-                <div class="feature-item">
-                    <div class="icon">1</div>
+            <p class="how-it-works-subtitle">Três passos simples para transformar seu trading com insights de IA.</p>
+            
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
                     <h3>Upload do Gráfico</h3>
-                    <p>Simplesmente faça o upload de uma imagem do seu gráfico de trading para análise instantânea de IA.</p>
+                    <p>Simplesmente faça o upload de uma imagem do seu gráfico para análise instantânea da IA.</p>
                 </div>
-                <div class="feature-item">
-                    <div class="icon">2</div>
+
+                <div class="step-card">
+                    <div class="step-number">2</div>
                     <h3>Análise de IA</h3>
-                    <p>Nossa IA escaneia padrões comprovados e níveis de suporte/resistência em segundos.</p>
+                    <p>Nossa IA examina padrões complexos e níveis de suporte/resistência em segundos.</p>
                 </div>
-                <div class="feature-item">
-                    <div class="icon">3</div>
+
+                <div class="step-card">
+                    <div class="step-number">3</div>
                     <h3>Plano de Trading</h3>
                     <p>Obtenha entradas, saídas e sugestões de gerenciamento de risco acionáveis.</p>
                 </div>
@@ -544,144 +705,176 @@
         </div>
     </section>
 
-    <section id="testimonials" class="section">
+    <!-- Pricing Section -->
+    <section class="pricing" id="precos">
         <div class="container">
-            <h2>O que nossos usuários dizem</h2>
-            <div class="features-grid">
-                <div class="feature-item">
-                    <p>"QuantumTrade revolucionou minha forma de analisar gráficos!"</p>
-                    <h3>- Usuário Satisfeito</h3>
-                </div>
-                <div class="feature-item">
-                    <p>"A análise de risco me ajudou a minimizar perdas e aumentar lucros."</p>
-                    <h3>- Trader Profissional</h3>
-                </div>
-                <div class="feature-item">
-                    <p>"Ferramenta essencial para qualquer trader que busca decisões informadas."</p>
-                    <h3>- Investidor Experiente</h3>
-                </div>
+            <h2>Escolha Seu Plano</h2>
+            
+            <div class="pricing-toggle">
+                <button class="toggle-button active" onclick="togglePricing('monthly')">Mensal</button>
+                <button class="toggle-button" onclick="togglePricing('annual')">Anual</button>
             </div>
-        </div>
-    </section>
 
-    <section id="pricing" class="pricing-section">
-        <div class="container">
-            <h2>Planos para todos os níveis de ambição</h2>
-            <div class="plan-toggle">
-                <button class="active" id="monthly-toggle">Mensal</button>
-                <button id="annual-toggle">Anual</button>
-            </div>
             <div class="pricing-grid">
-                <!-- Plano Free -->
-                <div class="price-card">
-                    <h3>Free</h3>
-                    <p class="price">$0<span>/mês</span></p>
-                    <ul>
+                <div class="pricing-card">
+                    <h3 class="plan-name">Free</h3>
+                    <div class="plan-price">
+                        <span class="currency">$</span><span class="price-value" data-monthly="0" data-annual="0">0</span><span class="period">/mês</span>
+                    </div>
+                    <ul class="plan-features">
                         <li>3 análises por dia</li>
                         <li>Indicadores básicos</li>
                         <li>Histórico de 1 dia</li>
                         <li>Suporte básico</li>
                     </ul>
-                    <a href="register.html" class="cta-button">Começar Grátis</a>
+                    <button class="plan-button">Começar Grátis</button>
                 </div>
 
-                <!-- Plano Essential -->
-                <div class="price-card popular">
-                    <h3>Essential</h3>
-                    <p class="price">$19<span>/mês</span></p>
-                    <ul>
+                <div class="pricing-card">
+                    <h3 class="plan-name">Essential</h3>
+                    <div class="plan-price">
+                        <span class="currency">$</span><span class="price-value" data-monthly="19" data-annual="15">19</span><span class="period">/mês</span>
+                    </div>
+                    <div class="plan-discount annual-discount" style="display: none;">21% de desconto</div>
+                    <ul class="plan-features">
                         <li>Análises ilimitadas</li>
                         <li>Todos os indicadores</li>
                         <li>Histórico de 7 dias</li>
                         <li>Suporte por e-mail</li>
                         <li>PDF Export</li>
                     </ul>
-                    <a href="register.html" class="cta-button">Teste Grátis por 30 dias</a>
+                    <button class="plan-button">Teste Grátis por 30 dias</button>
                 </div>
 
-                <!-- Plano Pro -->
-                <div class="price-card">
-                    <h3>Pro</h3>
-                    <p class="price">$49<span>/mês</span></p>
-                    <ul>
+                <div class="pricing-card featured">
+                    <h3 class="plan-name">Pro</h3>
+                    <div class="plan-price">
+                        <span class="currency">$</span><span class="price-value" data-monthly="49" data-annual="39">49</span><span class="period">/mês</span>
+                    </div>
+                    <div class="plan-discount annual-discount" style="display: none;">20% de desconto</div>
+                    <ul class="plan-features">
                         <li>Análises ilimitadas</li>
                         <li>Todos + indicadores combinados</li>
                         <li>Histórico de 30 dias</li>
                         <li>Suporte rápido</li>
                         <li>IA Prioritária</li>
                     </ul>
-                    <a href="register.html" class="cta-button">Começar Pro</a>
+                    <button class="plan-button">Começar Pro</button>
                 </div>
 
-                <!-- Plano Premium -->
-                <div class="price-card">
-                    <h3>Premium</h3>
-                    <p class="price">$99<span>/mês</span></p>
-                    <ul>
+                <div class="pricing-card">
+                    <h3 class="plan-name">Premium</h3>
+                    <div class="plan-price">
+                        <span class="currency">$</span><span class="price-value" data-monthly="99" data-annual="79">99</span><span class="period">/mês</span>
+                    </div>
+                    <div class="plan-discount annual-discount" style="display: none;">20% de desconto</div>
+                    <ul class="plan-features">
                         <li>Análises ilimitadas</li>
-                        <li>Todos + indicadores avançados</li>
-                        <li>Histórico de 90 dias</li>
-                        <li>Suporte prioritário</li>
-                        <li>Opções Binárias com horário exato</li>
+                        <li>Todos os recursos Pro</li>
+                        <li>Histórico ilimitado</li>
+                        <li>Suporte 24/7</li>
+                        <li>Recursos Beta</li>
                     </ul>
-                    <a href="register.html" class="cta-button">Começar Premium</a>
+                    <button class="plan-button">Começar Premium</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="cta" class="section">
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="depoimentos">
         <div class="container">
-            <h2>Pronto para começar?</h2>
-            <p>Junte-se a milhares de traders que já usam o QuantumTrade para tomar decisões mais inteligentes</p>
-            <a href="register.html" class="cta-button">Crie sua Conta</a>
+            <h2>O que nossos usuários dizem</h2>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">
+                        <img src="testimonial_person_1.png" alt="Usuário Satisfeito">
+                    </div>
+                    <p class="testimonial-text">"QuantumTrade revolucionou minha forma de analisar gráficos!"</p>
+                    <p class="testimonial-author">- Usuário Satisfeito</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">
+                        <img src="testimonial_person_2.png" alt="Trader Profissional">
+                    </div>
+                    <p class="testimonial-text">"A análise de risco me ajudou a minimizar perdas e aumentar lucros."</p>
+                    <p class="testimonial-author">- Trader Profissional</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">
+                        <img src="testimonial_person_3.png" alt="Investidor Experiente">
+                    </div>
+                    <p class="testimonial-text">"Ferramenta essencial para qualquer trader que busca decisões informadas."</p>
+                    <p class="testimonial-author">- Investidor Experiente</p>
+                </div>
+            </div>
         </div>
     </section>
 
+    <!-- Final CTA Section -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>Pronto para começar?</h2>
+            <p>Junte-se a milhares de traders que já usam o QuantumTrade para tomar decisões mais inteligentes</p>
+            <a href="register.html" class="final-cta-button">Inscreva-se Agora</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2023 QuantumTrade. Todos os direitos reservados.</p>
+            <p>&copy; 2024 QuantumTrade. Todos os direitos reservados.</p>
         </div>
     </footer>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const monthlyToggle = document.getElementById("monthly-toggle");
-            const annualToggle = document.getElementById("annual-toggle");
-            const priceCards = document.querySelectorAll(".price-card");
+        function togglePricing(period) {
+            const monthlyButton = document.querySelector('.toggle-button:first-child');
+            const annualButton = document.querySelector('.toggle-button:last-child');
+            const priceValues = document.querySelectorAll('.price-value');
+            const annualDiscounts = document.querySelectorAll('.annual-discount');
 
-            // Preços anuais
-            const annualPrices = {
-                "Essential": "$199<span>/ano</span>",
-                "Pro": "$499<span>/ano</span>",
-                "Premium": "$999<span>/ano</span>"
-            };
-
-            monthlyToggle.addEventListener("click", function() {
-                monthlyToggle.classList.add("active");
-                annualToggle.classList.remove("active");
-                // Restaurar preços mensais
-                priceCards.forEach(card => {
-                    const planName = card.querySelector("h3").innerText;
-                    if (planName === "Essential") card.querySelector(".price").innerHTML = "$19<span>/mês</span>";
-                    if (planName === "Pro") card.querySelector(".price").innerHTML = "$49<span>/mês</span>";
-                    if (planName === "Premium") card.querySelector(".price").innerHTML = "$99<span>/mês</span>";
+            if (period === 'monthly') {
+                monthlyButton.classList.add('active');
+                annualButton.classList.remove('active');
+                
+                priceValues.forEach(price => {
+                    price.textContent = price.dataset.monthly;
                 });
-            });
-
-            annualToggle.addEventListener("click", function() {
-                annualToggle.classList.add("active");
-                monthlyToggle.classList.remove("active");
-                // Aplicar preços anuais
-                priceCards.forEach(card => {
-                    const planName = card.querySelector("h3").innerText;
-                    if (annualPrices[planName]) {
-                        card.querySelector(".price").innerHTML = annualPrices[planName];
-                    }
+                
+                annualDiscounts.forEach(discount => {
+                    discount.style.display = 'none';
                 });
+            } else {
+                annualButton.classList.add('active');
+                monthlyButton.classList.remove('active');
+                
+                priceValues.forEach(price => {
+                    price.textContent = price.dataset.annual;
+                });
+                
+                annualDiscounts.forEach(discount => {
+                    discount.style.display = 'inline-block';
+                });
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             });
         });
     </script>
 </body>
 </html>
-
