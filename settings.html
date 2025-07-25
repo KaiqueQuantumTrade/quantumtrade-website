@@ -105,19 +105,15 @@
             cursor: pointer;
         }
 
-        .nav-item:hover {
-            background: rgba(139, 92, 246, 0.1);
-        }
-
-        .nav-item.sub-item {
-            margin-left: 20px;
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
+        .nav-item:hover,
         .nav-item.active {
-            background: rgba(139, 92, 246, 0.2);
-            border-right: 3px solid #8b5cf6;
+            background: rgba(0, 255, 136, 0.1);
+            color: #00ff88;
+        }
+
+        .nav-item.logout:hover {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
         }
 
         .nav-icon {
@@ -542,7 +538,7 @@
                     <span class="nav-icon">⚙️</span>
                     <span>Configurações</span>
                 </div>
-                <div class="nav-item sub-item" onclick="showSection('billing')">
+                <div class="nav-item" onclick="showSection('billing')">
                     <span class="nav-icon">💳</span>
                     <span>Cobranças</span>
                 </div>
@@ -588,7 +584,7 @@
                         <label>Plano atual</label>
                         <div class="current-plan">
                             <span class="plan-badge">Free</span>
-                            <button class="upgrade-btn" onclick="showSection('billing')">Fazer Upgrade</button>
+                            <button class="upgrade-btn" onclick="showSection('billing', document.querySelector('[href=\'#billing\']'))">Fazer Upgrade</button>
                         </div>
                     </div>
                 </div>
@@ -604,7 +600,7 @@
                 <!-- Plan Toggle -->
                 <div class="plan-toggle">
                     <button class="toggle-btn active" onclick="togglePlanType('monthly', this)">Mensal</button>
-                    <button class="toggle-btn" onclick="togglePlanType('annual', this)">Anual <span class="discount-badge">20% desconto</span></button>
+                    <button class="toggle-btn" onclick="togglePlanType('annual', this)">Anual <span class="discount-badge">20% OFF</span></button>
                 </div>
 
                 <!-- Plans Grid -->
