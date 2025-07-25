@@ -414,7 +414,7 @@
                 QuantumTrade
             </div>
             <div class="user-menu">
-                <div class="plan-info">
+                <div class="plan-info" onclick="goToSettings()" style="cursor: pointer;" title="Clique para gerenciar seu plano">
                     <span class="plan-badge" id="planBadge">Free</span>
                     <span class="analysis-counter" id="analysisCounter">0/3</span>
                 </div>
@@ -695,6 +695,11 @@
             `;
             
             resultsContainer.style.display = 'block';
+        }
+
+        // Go to settings page
+        function goToSettings() {
+            window.location.href = 'settings.html';
         }
 
         // Logout function
