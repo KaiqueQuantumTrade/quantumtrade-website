@@ -56,6 +56,43 @@
             gap: 20px;
         }
 
+        .plan-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #2d2d2d;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid #333;
+        }
+
+        .plan-badge {
+            background: linear-gradient(135deg, #00ff88 0%, #8b5cf6 100%);
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .analysis-counter {
+            color: #cccccc;
+            font-size: 0.9rem;
+        }
+
+        .analysis-counter.unlimited {
+            color: #00ff88;
+        }
+
+        .analysis-counter.warning {
+            color: #fbbf24;
+        }
+
+        .analysis-counter.danger {
+            color: #ef4444;
+        }
+
         .user-info {
             display: flex;
             align-items: center;
@@ -377,6 +414,10 @@
                 QuantumTrade
             </div>
             <div class="user-menu">
+                <div class="plan-info">
+                    <span class="plan-badge" id="planBadge">Free</span>
+                    <span class="analysis-counter" id="analysisCounter">0/3</span>
+                </div>
                 <div class="user-info">
                     <div class="user-avatar">U</div>
                     <span>Usuário</span>
@@ -443,6 +484,66 @@
     <script>
         let selectedFile = null;
         let analysisType = 'curto';
+        
+        // User plan and analysis limits
+        let userPlan = 'free'; // Default plan
+        let analysisLimits = {
+            free: { daily: 3, used: 0 },
+            essential: { daily: 10, used: 0 },
+            pro: { daily: -1, used: 0 }, // -1 means unlimited
+            premium: { daily: -1, used: 0 } // -1 means unlimited
+        };
+
+        // Update plan display in header
+        function updatePlanDisplay() {
+            const planBadge = document.getElementById('planBadge');
+            const analysisCounter = document.getElementById('analysisCounter');
+            const limit = analysisLimits[userPlan];
+            
+            // Update plan badge
+            planBadge.textContent = userPlan.charAt(0).toUpperCase() + userPlan.slice(1);
+            
+            // Update analysis counter
+            if (limit.daily === -1) {
+                analysisCounter.textContent = 'Ilimitado';
+                analysisCounter.className = 'analysis-counter unlimited';
+            } else {
+                analysisCounter.textContent = `${limit.used}/${limit.daily}`;
+                
+                // Change color based on usage
+                const percentage = limit.used / limit.daily;
+                if (percentage >= 1) {
+                    analysisCounter.className = 'analysis-counter danger';
+                } else if (percentage >= 0.8) {
+                    analysisCounter.className = 'analysis-counter warning';
+                } else {
+                    analysisCounter.className = 'analysis-counter';
+                }
+            }
+        }
+
+        // Check if user can perform analysis
+        function canPerformAnalysis() {
+            const limit = analysisLimits[userPlan];
+            if (limit.daily === -1) return true; // Unlimited
+            return limit.used < limit.daily;
+        }
+
+        // Update analysis button state
+        function updateAnalysisButton() {
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            const canAnalyze = canPerformAnalysis() && selectedFile;
+            
+            analyzeBtn.disabled = !canAnalyze;
+            
+            if (!canPerformAnalysis() && selectedFile) {
+                analyzeBtn.textContent = 'Limite de Análises Atingido';
+                analyzeBtn.style.background = '#666';
+            } else if (selectedFile) {
+                analyzeBtn.textContent = 'Iniciar Análise';
+                analyzeBtn.style.background = 'linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%)';
+            }
+        }
 
         // File upload handling
         function handleFileSelect(event) {
@@ -450,7 +551,7 @@
             if (file) {
                 selectedFile = file;
                 updateUploadArea(file);
-                document.getElementById('analyzeBtn').disabled = false;
+                updateAnalysisButton();
             }
         }
 
@@ -486,7 +587,7 @@
                 if (file.type.startsWith('image/')) {
                     selectedFile = file;
                     updateUploadArea(file);
-                    document.getElementById('analyzeBtn').disabled = false;
+                    updateAnalysisButton();
                 } else {
                     alert('Por favor, selecione apenas arquivos de imagem.');
                 }
@@ -512,6 +613,16 @@
                 alert('Por favor, selecione um arquivo primeiro.');
                 return;
             }
+
+            if (!canPerformAnalysis()) {
+                alert(`Limite de análises diário atingido para o plano ${userPlan.toUpperCase()}. Faça upgrade do seu plano para continuar.`);
+                return;
+            }
+
+            // Increment analysis count
+            analysisLimits[userPlan].used++;
+            updateAnalysisButton();
+            updatePlanDisplay();
 
             // Hide no analysis message
             document.getElementById('noAnalysis').style.display = 'none';
@@ -545,8 +656,8 @@
                 <div class="result-card">
                     <h3>Padrões Gráficos</h3>
                     <p><strong>Padrão Identificado:</strong> Triângulo ascendente em formação</p>
-                    <p><strong>Suporte:</strong> R$ 45.20</p>
-                    <p><strong>Resistência:</strong> R$ 47.80</p>
+                    <p><strong>Suporte:</strong> R$ 45,20</p>
+                    <p><strong>Resistência:</strong> R$ 47,80</p>
                     <p><strong>Confiabilidade:</strong> 85% baseada em volume</p>
                 </div>
 
@@ -565,15 +676,15 @@
                     <div class="trade-values">
                         <div class="trade-value">
                             <div class="trade-value-label">Entrada</div>
-                            <div class="trade-value-amount">R$ 46.50</div>
+                            <div class="trade-value-amount">R$ 46,50</div>
                         </div>
                         <div class="trade-value">
                             <div class="trade-value-label">Take Profit</div>
-                            <div class="trade-value-amount">R$ 49.20</div>
+                            <div class="trade-value-amount">R$ 49,20</div>
                         </div>
                         <div class="trade-value">
                             <div class="trade-value-label">Stop Loss</div>
-                            <div class="trade-value-amount">R$ 44.80</div>
+                            <div class="trade-value-amount">R$ 44,80</div>
                         </div>
                         <div class="trade-value">
                             <div class="trade-value-label">R/R Ratio</div>
@@ -595,6 +706,8 @@
 
         // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
+            updateAnalysisButton();
+            updatePlanDisplay();
             console.log('Dashboard carregado com sucesso');
         });
     </script>
