@@ -97,6 +97,13 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .user-info:hover {
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 8px;
+            padding: 8px;
         }
 
         .user-avatar {
@@ -126,7 +133,196 @@
             color: #ffffff;
         }
 
-        /* Main Content */
+        /* Market Ticker */
+        .market-ticker {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border-bottom: 1px solid #333;
+            overflow: hidden;
+            padding: 10px 0;
+        }
+
+        .ticker-container {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .ticker-scroll {
+            display: flex;
+            animation: scroll 30s linear infinite;
+            gap: 40px;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+            min-width: 200px;
+        }
+
+        .ticker-symbol {
+            font-weight: bold;
+            color: #00ff88;
+        }
+
+        .ticker-price {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .ticker-change {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .ticker-change.positive {
+            color: #00ff88;
+        }
+
+        .ticker-change.negative {
+            color: #ef4444;
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        /* Popular Assets */
+        .popular-assets {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid #333;
+        }
+
+        .popular-assets h3 {
+            color: #8b5cf6;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .assets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .asset-card {
+            background: linear-gradient(135deg, #2a2a2a 0%, #3d3d3d 100%);
+            border: 1px solid #444;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .asset-card:hover {
+            border-color: #00ff88;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.1);
+        }
+
+        .asset-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .asset-symbol {
+            font-weight: bold;
+            color: #ffffff;
+            font-size: 1.1rem;
+        }
+
+        .asset-name {
+            color: #cccccc;
+            font-size: 0.9rem;
+        }
+
+        .asset-category {
+            background: #8b5cf6;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            width: fit-content;
+        }
+
+        .asset-price {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 5px;
+        }
+
+        .asset-price .price {
+            font-weight: bold;
+            color: #ffffff;
+            font-size: 1.1rem;
+        }
+
+        .asset-price .change {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .asset-price .change.positive {
+            color: #00ff88;
+        }
+
+        .asset-price .change.negative {
+            color: #ef4444;
+        }
+
+        /* Analysis Section */
+        .analysis-section {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid #333;
+        }
+
+        .analysis-section h2 {
+            color: #8b5cf6;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .analysis-section > p {
+            color: #cccccc;
+            margin-bottom: 30px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .assets-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-grid {
+                padding: 20px;
+                gap: 20px;
+            }
+        }
         .main-content {
             max-width: 1200px;
             margin: 0 auto;
@@ -414,13 +610,13 @@
                 QuantumTrade
             </div>
             <div class="user-menu">
-                <div class="plan-info" onclick="goToSettings()" style="cursor: pointer;" title="Clique para gerenciar seu plano">
+                <div class="plan-info" onclick="goToPlans()" style="cursor: pointer;" title="Clique para fazer upgrade do seu plano">
                     <span class="plan-badge" id="planBadge">Free</span>
                     <span class="analysis-counter" id="analysisCounter">0/3</span>
                 </div>
-                <div class="user-info">
-                    <div class="user-avatar">U</div>
-                    <span>Usuário</span>
+                <div class="user-info" onclick="goToSettings()" style="cursor: pointer;" title="Clique para acessar configurações">
+                    <div class="user-avatar">K</div>
+                    <span>kaique_financas</span>
                 </div>
                 <button class="logout-btn" onclick="logout()">Sair</button>
             </div>
@@ -429,56 +625,247 @@
 
     <!-- Main Content -->
     <main class="main-content">
-        <!-- Upload Section -->
-        <section class="upload-section">
-            <h2>Análise de Gráfico</h2>
-            <p>Faça upload de um screenshot do seu gráfico de trading para receber uma análise completa baseada em IA.</p>
-            
-            <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
-                <div class="upload-icon">📊</div>
-                <div class="upload-text">Clique aqui ou arraste seu screenshot</div>
-                <div class="upload-subtext">Formatos aceitos: PNG, JPG, JPEG (máx. 10MB)</div>
-                <button class="upload-btn">Selecionar Arquivo</button>
-                <input type="file" id="fileInput" class="file-input" accept="image/*" onchange="handleFileSelect(event)">
-            </div>
-
-            <div class="analysis-options">
-                <h3>Tipo de Análise</h3>
-                <div class="option-group">
-                    <div class="option-btn active" data-type="curto" onclick="selectAnalysisType('curto', this)">
-                        <strong>Curto Prazo</strong><br>
-                        <small>Scalping/Day Trade</small>
+        <!-- Market Ticker -->
+        <section class="market-ticker">
+            <div class="ticker-container">
+                <div class="ticker-scroll" id="marketTicker">
+                    <div class="ticker-item">
+                        <span class="ticker-symbol">BTCUSDT</span>
+                        <span class="ticker-price" data-symbol="BTCUSDT">$43,250.00</span>
+                        <span class="ticker-change positive">+2.15%</span>
                     </div>
-                    <div class="option-btn" data-type="completa" onclick="selectAnalysisType('completa', this)">
-                        <strong>Análise Completa</strong><br>
-                        <small>Swing/Médio Prazo</small>
+                    <div class="ticker-item">
+                        <span class="ticker-symbol">ETHUSDT</span>
+                        <span class="ticker-price" data-symbol="ETHUSDT">$2,650.00</span>
+                        <span class="ticker-change negative">-1.25%</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-symbol">BNBUSDT</span>
+                        <span class="ticker-price" data-symbol="BNBUSDT">$315.50</span>
+                        <span class="ticker-change positive">+0.85%</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-symbol">EURUSD</span>
+                        <span class="ticker-price" data-symbol="EURUSD">1.0875</span>
+                        <span class="ticker-change negative">-0.12%</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-symbol">GBPUSD</span>
+                        <span class="ticker-price" data-symbol="GBPUSD">1.2650</span>
+                        <span class="ticker-change positive">+0.45%</span>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Popular Assets Section -->
+            <section class="popular-assets">
+                <h3>Ativos Populares</h3>
+                <div class="assets-grid">
+                    <div class="asset-card" onclick="openChart('BTCUSDT')">
+                        <div class="asset-info">
+                            <span class="asset-symbol">BTCUSDT</span>
+                            <span class="asset-name">Bitcoin</span>
+                            <span class="asset-category">Crypto</span>
+                        </div>
+                        <div class="asset-price">
+                            <span class="price">$43,250.00</span>
+                            <span class="change positive">+2.15%</span>
+                        </div>
+                    </div>
+
+                    <div class="asset-card" onclick="openChart('ETHUSDT')">
+                        <div class="asset-info">
+                            <span class="asset-symbol">ETHUSDT</span>
+                            <span class="asset-name">Ethereum</span>
+                            <span class="asset-category">Crypto</span>
+                        </div>
+                        <div class="asset-price">
+                            <span class="price">$2,650.00</span>
+                            <span class="change negative">-1.25%</span>
+                        </div>
+                    </div>
+
+                    <div class="asset-card" onclick="openChart('BNBUSDT')">
+                        <div class="asset-info">
+                            <span class="asset-symbol">BNBUSDT</span>
+                            <span class="asset-name">Binance Coin</span>
+                            <span class="asset-category">Crypto</span>
+                        </div>
+                        <div class="asset-price">
+                            <span class="price">$315.50</span>
+                            <span class="change positive">+0.85%</span>
+                        </div>
+                    </div>
+
+                    <div class="asset-card" onclick="openChart('ADAUSDT')">
+                        <div class="asset-info">
+                            <span class="asset-symbol">ADAUSDT</span>
+                            <span class="asset-name">Cardano</span>
+                            <span class="asset-category">Crypto</span>
+                        </div>
+                        <div class="asset-price">
+                            <span class="price">$0.485</span>
+                            <span class="change positive">+3.20%</span>
+                        </div>
+                    </div>
+
+                    <div class="asset-card" onclick="openChart('SOLUSDT')">
+                        <div class="asset-info">
+                            <span class="asset-symbol">SOLUSDT</span>
+                            <span class="asset-name">Solana</span>
+                            <span class="asset-category">Crypto</span>
+                        </div>
+                        <div class="asset-price">
+                            <span class="price">$98.75</span>
+                            <span class="change negative">-0.95%</span>
+                        </div>
+                    </div>
+
+                    <div class="asset-card" onclick="openChart('DOTUSDT')">
+                        <div class="asset-info">
+                            <span class="asset-symbol">DOTUSDT</span>
+                            <span class="asset-name">Polkadot</span>
+                            <span class="asset-category">Crypto</span>
+                        </div>
+                        <div class="asset-price">
+                            <span class="price">$7.25</span>
+                            <span class="change positive">+1.85%</span>
+                        </div>
+                    </div>
+
+                    <div class="asset-card" onclick="openChart('EURUSD')">
+                        <div class="asset-info">
+                            <span class="asset-symbol">EURUSD</span>
+                            <span class="asset-name">EUR/USD</span>
+                            <span class="asset-category">Forex</span>
+                        </div>
+                        <div class="asset-price">
+                            <span class="price">1.0875</span>
+                            <span class="change negative">-0.12%</span>
+                        </div>
+                    </div>
+
+                    <div class="asset-card" onclick="openChart('GBPUSD')">
+                        <div class="asset-info">
+                            <span class="asset-symbol">GBPUSD</span>
+                            <span class="asset-name">GBP/USD</span>
+                            <span class="asset-category">Forex</span>
+                        </div>
+                        <div class="asset-price">
+                            <span class="price">1.2650</span>
+                            <span class="change positive">+0.45%</span>
+                        </div>
+                    </div>
+
+                    <div class="asset-card" onclick="openChart('USDJPY')">
+                        <div class="asset-info">
+                            <span class="asset-symbol">USDJPY</span>
+                            <span class="asset-name">USD/JPY</span>
+                            <span class="asset-category">Forex</span>
+                        </div>
+                        <div class="asset-price">
+                            <span class="price">149.85</span>
+                            <span class="change positive">+0.25%</span>
+                        </div>
+                    </div>
+
+                    <div class="asset-card" onclick="openChart('AUDUSD')">
+                        <div class="asset-info">
+                            <span class="asset-symbol">AUDUSD</span>
+                            <span class="asset-name">AUD/USD</span>
+                            <span class="asset-category">Forex</span>
+                        </div>
+                        <div class="asset-price">
+                            <span class="price">0.6585</span>
+                            <span class="change negative">-0.35%</span>
+                        </div>
+                    </div>
+
+                    <div class="asset-card" onclick="openChart('USDCAD')">
+                        <div class="asset-info">
+                            <span class="asset-symbol">USDCAD</span>
+                            <span class="asset-name">USD/CAD</span>
+                            <span class="asset-category">Forex</span>
+                        </div>
+                        <div class="asset-price">
+                            <span class="price">1.3625</span>
+                            <span class="change positive">+0.15%</span>
+                        </div>
+                    </div>
+
+                    <div class="asset-card" onclick="openChart('USDCHF')">
+                        <div class="asset-info">
+                            <span class="asset-symbol">USDCHF</span>
+                            <span class="asset-name">USD/CHF</span>
+                            <span class="asset-category">Forex</span>
+                        </div>
+                        <div class="asset-price">
+                            <span class="price">0.8925</span>
+                            <span class="change negative">-0.08%</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analysis Section -->
+            <section class="analysis-section">
+                <h2>Análise de Gráficos com IA</h2>
+                <p>Faça upload de um screenshot do seu gráfico para receber uma análise completa com recomendações de trading.</p>
+
+                <!-- Upload Area -->
+                <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+                    <div class="upload-icon">📊</div>
+                    <div class="upload-text">Clique ou arraste um screenshot do gráfico aqui</div>
+                    <div class="upload-subtext">Suporta PNG, JPG, JPEG (máx. 10MB)</div>
+                    <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="handleFileSelect(event)">
+                </div>
+
+                <!-- Analysis Options -->
+                <div class="analysis-options">
+                    <h3>Tipo de Análise</h3>
+                    <div class="options-grid">
+                        <button class="option-btn active" onclick="selectAnalysisType('curto', this)">
+                            <span class="option-title">Curto Prazo</span>
+                            <span class="option-desc">Scalping e Day Trade</span>
+                        </button>
+                        <button class="option-btn" onclick="selectAnalysisType('completo', this)">
+                            <span class="option-title">Análise Completa</span>
+                            <span class="option-desc">Swing e Médio Prazo</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Analyze Button -->
                 <button class="analyze-btn" id="analyzeBtn" onclick="startAnalysis()" disabled>
-                    Iniciar Análise
+                    Selecione um arquivo primeiro
                 </button>
-            </div>
-        </section>
 
-        <!-- Results Section -->
-        <section class="results-section">
-            <h2>Resultados da Análise</h2>
-            
-            <div class="no-analysis" id="noAnalysis">
-                <div class="no-analysis-icon">📈</div>
-                <p>Faça upload de um gráfico para ver os resultados da análise aqui.</p>
-            </div>
+                <!-- Results Section -->
+                <div class="results-section">
+                    <!-- No Analysis State -->
+                    <div class="no-analysis" id="noAnalysis">
+                        <div class="no-analysis-icon">🤖</div>
+                        <h3>Nenhuma análise realizada ainda</h3>
+                        <p>Faça upload de um gráfico para começar a análise com IA</p>
+                    </div>
 
-            <div class="loading" id="loadingAnalysis">
-                <div class="loading-spinner"></div>
-                <p>Analisando seu gráfico...</p>
-                <small>Isso pode levar alguns segundos</small>
-            </div>
+                    <!-- Loading State -->
+                    <div class="loading-analysis" id="loadingAnalysis" style="display: none;">
+                        <div class="loading-spinner"></div>
+                        <h3>Analisando gráfico...</h3>
+                        <p>Nossa IA está processando os dados do seu gráfico</p>
+                    </div>
 
-            <div class="analysis-results" id="analysisResults">
-                <!-- Results will be populated here -->
-            </div>
-        </section>
+                    <!-- Analysis Results -->
+                    <div class="analysis-results" id="analysisResults" style="display: none;">
+                        <!-- Results will be populated here -->
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
 
     <script>
@@ -656,8 +1043,8 @@
                 <div class="result-card">
                     <h3>Padrões Gráficos</h3>
                     <p><strong>Padrão Identificado:</strong> Triângulo ascendente em formação</p>
-                    <p><strong>Suporte:</strong> R$ 45,20</p>
-                    <p><strong>Resistência:</strong> R$ 47,80</p>
+                    <p><strong>Suporte:</strong> $45.20</p>
+                    <p><strong>Resistência:</strong> $47.80</p>
                     <p><strong>Confiabilidade:</strong> 85% baseada em volume</p>
                 </div>
 
@@ -676,15 +1063,15 @@
                     <div class="trade-values">
                         <div class="trade-value">
                             <div class="trade-value-label">Entrada</div>
-                            <div class="trade-value-amount">R$ 46,50</div>
+                            <div class="trade-value-amount">$46.50</div>
                         </div>
                         <div class="trade-value">
                             <div class="trade-value-label">Take Profit</div>
-                            <div class="trade-value-amount">R$ 49,20</div>
+                            <div class="trade-value-amount">$49.20</div>
                         </div>
                         <div class="trade-value">
                             <div class="trade-value-label">Stop Loss</div>
-                            <div class="trade-value-amount">R$ 44,80</div>
+                            <div class="trade-value-amount">$44.80</div>
                         </div>
                         <div class="trade-value">
                             <div class="trade-value-label">R/R Ratio</div>
@@ -697,9 +1084,55 @@
             resultsContainer.style.display = 'block';
         }
 
-        // Go to settings page
+        // Open TradingView chart for selected asset
+        function openChart(symbol) {
+            // Open TradingView chart in new tab with indicators
+            const tradingViewUrl = `https://br.tradingview.com/chart/?symbol=${symbol}&interval=1H&studies=BB%2CMACD%2CRSI%2CStoch%2CMA%2CEMA`;
+            window.open(tradingViewUrl, '_blank');
+        }
+
+        // Update market ticker prices (simulated real-time)
+        function updateMarketPrices() {
+            const tickerItems = document.querySelectorAll('.ticker-item');
+            const assetCards = document.querySelectorAll('.asset-card');
+            
+            // Simulate price changes
+            const symbols = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'EURUSD', 'GBPUSD'];
+            
+            symbols.forEach(symbol => {
+                // Random price change between -2% and +2%
+                const changePercent = (Math.random() - 0.5) * 4;
+                const isPositive = changePercent > 0;
+                
+                // Update ticker
+                const tickerPrice = document.querySelector(`[data-symbol="${symbol}"]`);
+                if (tickerPrice) {
+                    const currentPrice = parseFloat(tickerPrice.textContent.replace('$', '').replace(',', ''));
+                    const newPrice = currentPrice * (1 + changePercent / 100);
+                    
+                    if (symbol.includes('USD') && !symbol.includes('USDT')) {
+                        tickerPrice.textContent = newPrice.toFixed(4);
+                    } else {
+                        tickerPrice.textContent = '$' + newPrice.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    }
+                    
+                    // Update change indicator
+                    const changeElement = tickerPrice.parentElement.querySelector('.ticker-change');
+                    changeElement.textContent = (isPositive ? '+' : '') + changePercent.toFixed(2) + '%';
+                    changeElement.className = 'ticker-change ' + (isPositive ? 'positive' : 'negative');
+                }
+            });
+        }
+
+        // Start price updates every 5 seconds
+        setInterval(updateMarketPrices, 5000);
         function goToSettings() {
-            window.location.href = 'settings.html';
+            window.location.href = 'settings.html#plans';
+        }
+
+        // Go to plans section specifically
+        function goToPlans() {
+            window.location.href = 'settings.html#plans';
         }
 
         // Logout function
