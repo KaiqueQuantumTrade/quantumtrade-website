@@ -185,6 +185,26 @@
             color: #ffffff;
         }
 
+        /* Logo */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-right: 20px;
+        }
+
+        .logo-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
         /* Market Ticker */
         .market-ticker {
             background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
@@ -781,6 +801,19 @@
             </div>
             
             <div class="user-menu">
+                <!-- Logo -->
+                <div class="logo">
+                    <div class="logo-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="32" height="32" rx="8" fill="#00D4AA"/>
+                            <path d="M8 12L16 8L24 12L16 16L8 12Z" fill="white"/>
+                            <path d="M8 16L16 12L24 16L16 20L8 16Z" fill="white" opacity="0.7"/>
+                            <path d="M8 20L16 16L24 20L16 24L8 20Z" fill="white" opacity="0.5"/>
+                        </svg>
+                    </div>
+                    <span class="logo-text">QuantumTrade</span>
+                </div>
+
                 <div class="plan-info" onclick="goToPlans()" style="cursor: pointer;" title="Clique para fazer upgrade do seu plano">
                     <span class="plan-badge" id="planBadge">Free</span>
                     <span class="analysis-counter" id="analysisCounter">0/3</span>
@@ -899,12 +932,63 @@
                     </div>
                 </div>
 
-                <!-- Live TradingView Chart -->
-                <div class="live-chart-section">
-                    <h4>Gráfico ao Vivo - <span id="currentSymbol">BTCUSDT</span></h4>
-                    <div class="tradingview-widget-container">
-                        <div id="tradingview_chart"></div>
+              <!-- Live Chart Section -->
+            <section class="live-chart-section">
+                <div class="chart-header">
+                    <h3>Gráfico ao Vivo - <span id="currentSymbol">BNBUSDT</span></h3>
+                </div>
+                <div id="tradingview_chart"></div>
+            </section>
+
+            <!-- AI Analysis Section -->
+            <section class="ai-analysis-section">
+                <h3>Análise de Gráficos com IA</h3>
+                <p>Faça upload de um screenshot do seu gráfico para receber uma análise completa com recomendações de trading.</p>
+                
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📊</div>
+                    <p>Clique ou arraste um screenshot do gráfico aqui</p>
+                    <p class="upload-hint">Suporta PNG, JPG, JPEG (máx. 10MB)</p>
+                    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="file-info" id="fileInfo" style="display: none;">
+                    <div class="file-preview">
+                        <span class="file-icon">✅</span>
+                        <div class="file-details">
+                            <span class="file-name" id="fileName"></span>
+                            <span class="file-size" id="fileSize"></span>
+                        </div>
+                        <button class="remove-file" onclick="removeFile()">×</button>
                     </div>
+                </div>
+
+                <div class="analysis-options">
+                    <h4>Tipo de Análise</h4>
+                    <div class="analysis-type-buttons">
+                        <button class="analysis-btn active" onclick="selectAnalysisType('curto', this)">
+                            Curto Prazo (Scalping e Day Trade)
+                        </button>
+                        <button class="analysis-btn" onclick="selectAnalysisType('completo', this)">
+                            Análise Completa (Swing e Médio Prazo)
+                        </button>
+                    </div>
+                </div>
+
+                <div class="analysis-status" id="analysisStatus">
+                    <p>Nenhuma análise realizada ainda</p>
+                    <p class="status-hint">Faça upload de um gráfico para começar a análise com IA</p>
+                </div>
+
+                <button class="analyze-btn" id="analyzeBtn" onclick="startAnalysis()" disabled>
+                    Iniciar Análise
+                </button>
+
+                <div class="results-container" id="resultsContainer" style="display: none;">
+                    <!-- Results will be populated here -->
+                </div>
+            </section>
+        </div>
                 </div>
             </section>
 
